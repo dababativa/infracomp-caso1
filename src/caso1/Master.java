@@ -1,10 +1,19 @@
 package caso1;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class Master {
 	
 	public static void main(String[] args) {
+
+		try{
+			BufferedReader bf = new BufferedReader(new FileReader(new File("datos.txt")));
+			System.out.println(bf.readLine());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+/*
 		int cantidadClientes = 5000;
 		int threadsServer = 8;
 		int tamanhoBuffer = 200;
@@ -21,7 +30,7 @@ public class Master {
 		
 		for (int i = 0; i < clientes.size(); i++) {
 			clientes.get(i).start();
-		}
+		}*/
 	}
 
 }
