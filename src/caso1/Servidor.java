@@ -16,7 +16,6 @@ public class Servidor extends Thread {
 			ThreadServidor nuevoThread = new ThreadServidor(buffer, i);
 			threads.add(nuevoThread);
 		}
-		System.out.println("Se creo un servidor con " + cantidadThreads + " de threads");
 	}
 
 	public int getCantidadThreads() {
@@ -28,9 +27,7 @@ public class Servidor extends Thread {
 	}
 
 	public void run() {
-		System.out.println("El servidor va a crear Threads");
 		for (int i = 0; i < threads.size(); i++) {
-			System.out.println("Se emperica un Thread");
 			threads.get(i).start();
 		}
 	}

@@ -6,19 +6,23 @@ public class Buffer {
 	
 	private int recursosLibres;
 	private ArrayList<Mensaje> mensajes;
-	
-	public Buffer(int tamanho) {
+	private int clientes;
+	public Buffer(int tamanho, int pClientes) {
 		recursosLibres = tamanho;
+		clientes = pClientes;
 		mensajes = new ArrayList<Mensaje>();
-		System.out.println("Se creó un Buffer");
 	}
-	
-	public void enviarMensaje(Mensaje mensaje) {
+	public boolean hayClientes(){
+		return clientes>0;
+	}
+	public void quite(){
+		clientes--;
+	}
+	public synchronized void enviarMensaje(Mensaje mensaje) {
 		if(recursosLibres<1) {
 			try {
 				System.out.println("Se va a esperar (Buffer)");
 				wait();
-				System.out.println("Se espero (Buffer)");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -26,23 +30,25 @@ public class Buffer {
 		}
 		recursosLibres--;
 		mensajes.add(mensaje);
-		System.out.println("Se va a añadir un mensaje al Buffer");
+		System.out.println("Se añadio " + mensaje.identificar() + " al Buffer");
+		mensajesActuales("añadidos");
 	}
-	public void existo(){
-		System.out.println("Existo");
+	public void mensajesActuales(String a){
+		System.out.println("Hay " + mensajes.size() + " mensajes " + a);
 	}
-	public Mensaje retirarMensaje() {
+	public synchronized Mensaje retirarMensaje() {
 		if(mensajes.isEmpty()) {
 			System.out.println("El Buffer esta vacio nea");
 			return null;
 		}
 		Mensaje message = mensajes.remove(0);
 		recursosLibres++;
-		System.out.println("Se fue un mensaje del Buffer");
+		System.out.println("Se fue un mensaje del Buffer " + message.identificar());
 		if(recursosLibres==1) {
 			System.out.println("Se notifica que ahora hay espacio en el Buffer");
 			notify();
 		}
+		mensajesActuales("sacados");
 		return message;
 	}
 }

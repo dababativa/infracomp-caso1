@@ -6,24 +6,21 @@ public class ThreadServidor extends Thread{
 	private int id;
 	public ThreadServidor(Buffer buffer, int pId) {
 		this.buffer = buffer;
-		buffer.existo();
 		id = pId;
-		System.out.println("Se creo un thread de servidor con id " + id);
 	}
 
 	public void run() {
-		System.out.println("El thread " + id + " va a ahcer cosas");
-		while(true) {
-			System.out.println("El thread " + id +" esta haciendo cosas");
+		while(buffer.hayClientes()) {
 			Mensaje mensaje = buffer.retirarMensaje();
 			if(mensaje==null) {
 				System.out.println("El thread " + id + " no encontro mensajes en el buffer, se va a devolver a listo");
 				yield();
 			} else {
-				System.out.println("el thread " + id + "va a responder un mensaje");
+				System.out.println("el thread " + id + "va a responder un mensaje " + mensaje.identificar());
 				mensaje.responderMensaje();
 			}
 		
 		}
+		System.out.println(id + " se despide");
 	}
 }
