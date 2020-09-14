@@ -1,3 +1,12 @@
-A
-B
-C
+10
+3
+5
+1000
+
+/*
+Arriba se encuentran los parametros de inicio del sistema.
+el primero hace referencia a la cantidad de clientes que se van a crear
+el segundo hace referencia a le cantidad de threads que va a crear el servidor
+el tercero hace referencia al tamaño del Buffer
+el cuarto hace referencia a la base mediante la cual se van a calcular los mensajes que va a mandar un cliente. Esa cantidad se calcula al multiplicar ese numero por el numero en que el cliente se crea.
+*/
